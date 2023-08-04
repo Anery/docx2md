@@ -2,7 +2,7 @@
 
 Convert Microsoft Word Document to Markdown
 
-![docx2md](https://raw.githubusercontent.com/mattn/docx2md/master/screenshot.png)
+![docx2md](https://raw.githubusercontent.com/Anery/docx2md/master/screenshot.png)
 
 ## Usage
 

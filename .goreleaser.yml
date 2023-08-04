@@ -14,5 +14,5 @@ archive:
     - README.md
 release:
   github:
-    owner: mattn
+    owner: Anery
     name: docx2md

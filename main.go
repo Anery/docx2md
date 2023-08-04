@@ -18,7 +18,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/mattn/go-runewidth"
+	"github.com/Anery/go-runewidth"
 )
 
 const name = "docx2md"
