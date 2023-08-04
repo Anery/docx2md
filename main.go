@@ -357,72 +357,74 @@ func (zf *file) walk(node *Node, w io.Writer) error {
 			if i == 0 {
 				for j := 0; j < maxcol; j++ {
 					fmt.Fprint(w, "|")
-					fmt.Fprint(w, strings.Repeat(" ", widths[j]))
+					// fmt.Fprint(w, strings.Repeat(" ", widths[j]))
 				}
 				fmt.Fprint(w, "|\n")
 				for j := 0; j < maxcol; j++ {
 					fmt.Fprint(w, "|")
-					fmt.Fprint(w, strings.Repeat("-", widths[j]))
+					fmt.Fprint(w, "-")
+					// fmt.Fprint(w, strings.Repeat("-", widths[j]))
 				}
 				fmt.Fprint(w, "|\n")
 			}
 			for j := 0; j < maxcol; j++ {
 				fmt.Fprint(w, "|")
 				if j < len(row) {
-					width := runewidth.StringWidth(row[j])
+					// width := runewidth.StringWidth(row[j])
 					fmt.Fprint(w, escape(row[j], "|"))
-					fmt.Fprint(w, strings.Repeat(" ", widths[j]-width))
+					// fmt.Fprint(w, strings.Repeat(" ", widths[j]-width))
 				} else {
-					fmt.Fprint(w, strings.Repeat(" ", widths[j]))
+					// fmt.Fprint(w, strings.Repeat(" ", widths[j]))
 				}
 			}
 			fmt.Fprint(w, "|\n")
 		}
 		fmt.Fprint(w, "\n")
 	case "r":
-		bold := false
-		italic := false
-		strike := false
-		for _, n := range node.Nodes {
-			if n.XMLName.Local != "rPr" {
-				continue
-			}
-			for _, nn := range n.Nodes {
-				switch nn.XMLName.Local {
-				case "b":
-					bold = true
-				case "i":
-					italic = true
-				case "strike":
-					strike = true
-				}
-			}
-		}
-		if strike {
-			fmt.Fprint(w, "~~")
-		}
-		if bold {
-			fmt.Fprint(w, "**")
-		}
-		if italic {
-			fmt.Fprint(w, "*")
-		}
+		// bold := false
+		// italic := false
+		// strike := false
+		// for _, n := range node.Nodes {
+		// 	if n.XMLName.Local != "rPr" {
+		// 		continue
+		// 	}
+		// 	for _, nn := range n.Nodes {
+		// 		switch nn.XMLName.Local {
+		// 		case "b":
+		// 			bold = true
+		// 		case "i":
+		// 			italic = true
+		// 		case "strike":
+		// 			strike = true
+		// 		}
+		// 	}
+		// }
+		// if strike {
+		// 	fmt.Fprint(w, "~~")
+		// }
+		// if bold {
+		// 	fmt.Fprint(w, "**")
+		// }
+		// if italic {
+		// 	fmt.Fprint(w, "*")
+		// }
 		var cbuf bytes.Buffer
 		for _, n := range node.Nodes {
 			if err := zf.walk(&n, &cbuf); err != nil {
 				return err
 			}
 		}
-		fmt.Fprint(w, escape(cbuf.String(), `*~\`))
-		if italic {
-			fmt.Fprint(w, "*")
-		}
-		if bold {
-			fmt.Fprint(w, "**")
-		}
-		if strike {
-			fmt.Fprint(w, "~~")
-		}
+		fmt.Fprint(w, cbuf.String())
+		// fmt.Fprint(w, escape(cbuf.String(), `*~\`))
+		// if italic {
+		// 	fmt.Fprint(w, "*")
+		// }
+		// if bold {
+		// 	fmt.Fprint(w, "**")
+		// }
+		// if strike {
+		// 	fmt.Fprint(w, "~~")
+		// }
 	case "p":
 		for _, n := range node.Nodes {
 			if err := zf.walk(&n, w); err != nil {
